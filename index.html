@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cybersecurity Portfolio & CTF Writeups - Professional cybersecurity student showcasing skills, projects, and technical knowledge">
+    <meta name="keywords" content="cybersecurity, CTF, ethical hacking, web security, portfolio, writeups, reverse engineering">
+    <meta property="og:title" content="CyberSec Portfolio | Cybersecurity Student & CTF Player">
+    <meta property="og:description" content="Professional cybersecurity portfolio showcasing skills, CTF writeups, and technical blog">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <title>CyberSec Portfolio | Cybersecurity Student & CTF Player</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --surface: #1a1a2e;
+            --surface-hover: #16213e;
+            --primary: #00b4d8;
+            --primary-hover: #0096c7;
+            --text: #e0e0e0;
+            --text-secondary: #a0a0b0;
+            --border: #2a2a3e;
+            --card-bg: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(0, 180, 216, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --glow: 0 0 20px rgba(0, 180, 216, 0.1);
+        }
+
+        .light-mode {
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --surface-hover: #f0f0f0;
+            --primary: #0077b6;
+            --primary-hover: #023e8a;
+            --text: #1a1a2e;
+            --text-secondary: #4a5568;
+            --border: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 119, 182, 0.2);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 20px rgba(0, 119, 182, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .light-mode .navbar {
+            background: rgba(248, 249, 250, 0.8);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            background: rgba(0, 180, 216, 0.1);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 20px 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(rgba(0, 180, 216, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 180, 216, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 180, 216, 0.1);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 50px;
+            padding: 8px 20px;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #00d4ff);
+            border-radius: 10px;
+            transition: width 1.5s ease;
+        }
+
+        /* Writeups Grid */
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .writeup-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .writeup-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .writeup-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-category {
+            background: rgba(0, 180, 216, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 180, 216, 0.2);
+        }
+
+        .badge-easy {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .badge-hard {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .writeup-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .writeup-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background: var(--surface-hover);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--surface), var(--surface-hover));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 30px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -41px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        /* Certificates Grid */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .cert-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .cert-issuer {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cert-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow);
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.4);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: var(--surface-hover);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #30363d;
+        }
+
+        .code-block code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #30363d;
+            border: none;
+            color: #c9d1d9;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #444c56;
+        }
+
+        /* Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Toast Messages */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--surface);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 15px 25px;
+            color: var(--text);
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--glow);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                flex-direction: column;
+                padding: 20px;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .writeups-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Image Zoom */
+        .zoomable {
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .zoomable.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 404 Page */
+        .not-found {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .not-found-code {
+            font-size: 8rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container navbar-content">
+            <a href="#home" class="nav-logo">
+                <span>⌘</span> root@portfolio
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#writeups" onclick="closeMenu()">Writeups</a></li>
+                <li><a href="#blog" onclick="closeMenu()">Blog</a></li>
+                <li><a href="#certificates" onclick="closeMenu()">Certificates</a></li>
+                <li><a href="#achievements" onclick="closeMenu()">Achievements</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    🌙
+                </button>
+                <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">
+                    ☰
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>⌨️</span> Available for opportunities
+            </div>
+            <h1 class="hero-title">
+                > Hi, I'm <span>Your Name</span>
+            </h1>
+            <p class="hero-subtitle">Cybersecurity Student</p>
+            <p class="hero-subtitle" style="font-size: 1.2rem;">CTF Player • Ethical Hacking Enthusiast</p>
+            <p class="hero-description">
+                Passionate about web security, reverse engineering, and digital forensics. 
+                Sharing knowledge through CTF writeups and technical blog posts.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">🚀 View Projects</a>
+                <a href="#writeups" class="btn btn-outline">📝 Read Writeups</a>
+                <a href="#" class="btn btn-outline" onclick="downloadResume()">📥 Download Resume</a>
+                <a href="#contact" class="btn btn-outline">✉️ Contact Me</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank" class="social-link" aria-label="GitHub">
+                    <span>⬡</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn">
+                    <span>🔗</span>
+                </a>
+                <a href="mailto:email@example.com" class="social-link" aria-label="Email">
+                    <span>✉️</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> About Me</h2>
+            <p class="section-subtitle">Professional cybersecurity enthusiast & lifelong learner</p>
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <div style="display: flex; gap: 30px; align-items: start; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px; text-align: center;">
+                        <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #00d4ff); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                            👤
+                        </div>
+                    </div>
+                    <div style="flex: 2; min-width: 300px;">
+                        <p style="margin-bottom: 15px; line-height: 1.8;">
+                            I'm a passionate cybersecurity student with a deep interest in protecting digital assets and uncovering vulnerabilities. My journey into cybersecurity began with a curiosity about how systems work and how they can be secured.
+                        </p>
+                        <p style="margin-bottom: 15px; line-height: 1.8;">
+                            I specialize in <strong>Web Security</strong>, <strong>Reverse Engineering</strong>, and <strong>Digital Forensics</strong>. I regularly participate in CTF competitions to sharpen my skills and stay updated with the latest security trends.
+                        </p>
+                        <p style="line-height: 1.8;">
+                            When I'm not hacking, I enjoy contributing to open-source security tools, writing technical blog posts, and mentoring newcomers to the field.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Skills & Expertise</h2>
+            <p class="section-subtitle">Technical skills and tools I work with</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <span>💻</span> Programming
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Python</span><span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Bash</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>C</span><span>75%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>SQL</span><span>80%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <span>🛡️</span> Security
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Web Security</span><span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Network Security</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Reverse Engineering</span><span>80%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Digital Forensics</span><span>75%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>OSINT</span><span>70%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="70"></div></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <span>🔧</span> Tools
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Burp Suite</span><span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Nmap</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Wireshark</span><span>80%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Ghidra</span><span>75%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="75"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info"><span>Metasploit</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Projects</h2>
+            <p class="section-subtitle">Security tools and research projects</p>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterProjects('all', this)">All</button>
+                <button class="filter-btn" onclick="filterProjects('web', this)">Web Security</button>
+                <button class="filter-btn" onclick="filterProjects('network', this)">Network</button>
+                <button class="filter-btn" onclick="filterProjects('forensics', this)">Forensics</button>
+            </div>
+            <div class="projects-grid" id="projectsGrid">
+                <div class="project-card" data-category="web">
+                    <div class="project-image">🔍</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Web Vulnerability Scanner</h3>
+                        <p class="project-description">Automated scanner for detecting common web vulnerabilities including XSS, SQLi, and CSRF.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Flask</span>
+                            <span class="tag">SQLite</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">GitHub</a>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="network">
+                    <div class="project-image">📡</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Network Traffic Analyzer</h3>
+                        <p class="project-description">Real-time network monitoring tool with anomaly detection and packet analysis capabilities.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Scapy</span>
+                            <span class="tag">Elasticsearch</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">GitHub</a>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="forensics">
+                    <div class="project-image">🔬</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Memory Forensics Toolkit</h3>
+                        <p class="project-description">Collection of scripts for memory dump analysis and malware detection using Volatility framework.</p>
+                        <div class="project-tech">
+                            <span class="tag">Python</span>
+                            <span class="tag">Volatility</span>
+                            <span class="tag">YARA</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">GitHub</a>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writeups Section -->
+    <section id="writeups" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> CTF Writeups</h2>
+            <p class="section-subtitle">Detailed solutions from various CTF challenges</p>
+            
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="writeupSearch" placeholder="Search writeups..." onkeyup="filterWriteups()">
+            </div>
+
+            <div class="filters" id="writeupFilters">
+                <button class="filter-btn active" onclick="filterWriteupsByCategory('all', this)">All</button>
+                <button class="filter-btn" onclick="filterWriteupsByCategory('web', this)">Web</button>
+                <button class="filter-btn" onclick="filterWriteupsByCategory('reverse', this)">Reverse Eng</button>
+                <button class="filter-btn" onclick="filterWriteupsByCategory('forensics', this)">Forensics</button>
+                <button class="filter-btn" onclick="filterWriteupsByCategory('crypto', this)">Crypto</button>
+                <button class="filter-btn" onclick="filterWriteupsByCategory('osint', this)">OSINT</button>
+            </div>
+
+            <div class="writeups-grid" id="writeupsGrid">
+                <div class="writeup-card" data-category="web" data-difficulty="medium" onclick="openWriteup('sql-injection')">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Web Exploitation</span>
+                        <span class="badge badge-medium">Medium</span>
+                    </div>
+                    <h3 class="writeup-title">SQL Injection Mastery</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Jan 15, 2024</span>
+                        <span>⏱️ 12 min read</span>
+                        <span>🏠 HackTheBox</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Database</span>
+                        <span class="tag">Auth Bypass</span>
+                    </div>
+                </div>
+                <div class="writeup-card" data-category="reverse" data-difficulty="hard" onclick="openWriteup('reverse-engineering')">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Reverse Engineering</span>
+                        <span class="badge badge-hard">Hard</span>
+                    </div>
+                    <h3 class="writeup-title">Binary Protocol Analysis</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Jan 10, 2024</span>
+                        <span>⏱️ 18 min read</span>
+                        <span>🏠 TryHackMe</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Ghidra</span>
+                        <span class="tag">Assembly</span>
+                        <span class="tag">Protocol</span>
+                    </div>
+                </div>
+                <div class="writeup-card" data-category="forensics" data-difficulty="easy" onclick="openWriteup('memory-forensics')">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Digital Forensics</span>
+                        <span class="badge badge-easy">Easy</span>
+                    </div>
+                    <h3 class="writeup-title">Memory Dump Analysis</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Jan 5, 2024</span>
+                        <span>⏱️ 8 min read</span>
+                        <span>🏠 picoCTF</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Volatility</span>
+                        <span class="tag">Memory</span>
+                        <span class="tag">Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Technical Blog</h2>
+            <p class="section-subtitle">Articles about cybersecurity and technology</p>
+            <div class="writeups-grid" id="blogGrid">
+                <div class="writeup-card">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Web Security</span>
+                    </div>
+                    <h3 class="writeup-title">Understanding OWASP Top 10</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Dec 20, 2023</span>
+                        <span>⏱️ 15 min read</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">OWASP</span>
+                        <span class="tag">Web</span>
+                        <span class="tag">Security</span>
+                    </div>
+                </div>
+                <div class="writeup-card">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Tools</span>
+                    </div>
+                    <h3 class="writeup-title">Burp Suite Pro Tips</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Dec 15, 2023</span>
+                        <span>⏱️ 10 min read</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Burp Suite</span>
+                        <span class="tag">Tools</span>
+                        <span class="tag">Tutorial</span>
+                    </div>
+                </div>
+                <div class="writeup-card">
+                    <div class="writeup-badges">
+                        <span class="badge badge-category">Career</span>
+                    </div>
+                    <h3 class="writeup-title">Getting Started in Cybersecurity</h3>
+                    <div class="writeup-meta">
+                        <span>📅 Dec 10, 2023</span>
+                        <span>⏱️ 20 min read</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Career</span>
+                        <span class="tag">Guide</span>
+                        <span class="tag">Beginners</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Certificates</h2>
+            <p class="section-subtitle">Professional certifications and achievements</p>
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">🎓</div>
+                    <h3 class="cert-title">eJPT Certification</h3>
+                    <p class="cert-issuer">INE Security</p>
+                    <p class="cert-date">Completed: June 2023</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px; padding: 8px 16px; font-size: 0.9rem;">Verify</a>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🛡️</div>
+                    <h3 class="cert-title">CompTIA Security+</h3>
+                    <p class="cert-issuer">CompTIA</p>
+                    <p class="cert-date">Completed: March 2023</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px; padding: 8px 16px; font-size: 0.9rem;">Verify</a>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🌐</div>
+                    <h3 class="cert-title">AWS Cloud Practitioner</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                    <p class="cert-date">Completed: Jan 2023</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px; padding: 8px 16px; font-size: 0.9rem;">Verify</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Achievements</h2>
+            <p class="section-subtitle">Milestones and accomplishments</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">🏆 National CTF Finals - 3rd Place</h3>
+                        <p>Secured 3rd position in the National Cybersecurity CTF Competition among 200+ teams.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">🎤 Security Conference Speaker</h3>
+                        <p>Presented "Modern Web Attack Vectors" at the Regional Cybersecurity Conference.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">💻 Hackathon Winner</h3>
+                        <p>Won the 48-hour HackTheBox University Hackathon with innovative exploit chain.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">👥 Cybersecurity Club President</h3>
+                        <p>Founded and led the university cybersecurity club, growing membership to 150+ students.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title"><span>></span> Contact Me</h2>
+            <p class="section-subtitle">Get in touch for opportunities or collaboration</p>
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Name</label>
+                        <input type="text" id="name" class="form-input" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-input" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea id="message" class="form-textarea" required placeholder="Your message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message ✉️</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writeup Modal -->
+    <div class="modal" id="writeupModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div id="writeupContent">
+                <div class="writeup-badges">
+                    <span class="badge badge-category">Web Exploitation</span>
+                    <span class="badge badge-medium">Medium</span>
+                </div>
+                <h2 style="font-size: 2rem; margin: 15px 0;">SQL Injection Mastery</h2>
+                <div class="writeup-meta" style="margin-bottom: 20px;">
+                    <span>📅 January 15, 2024</span>
+                    <span>⏱️ 12 min read</span>
+                    <span>🏠 HackTheBox</span>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 25px 0 15px;">Overview</h3>
+                <p>This writeup details the methodology used to exploit a SQL injection vulnerability in a web application, leading to authentication bypass and data extraction.</p>
+                
+                <h3 style="color: var(--primary); margin: 25px 0 15px;">Enumeration</h3>
+                <p>Initial enumeration revealed a login form that appeared to be vulnerable to SQL injection.</p>
+                
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <code>' OR '1'='1' --<br>' UNION SELECT NULL, NULL, NULL --<br>' UNION SELECT NULL, @@version, NULL --</code>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 25px 0 15px;">Solution</h3>
+                <p>Using sqlmap, we automated the extraction process and obtained admin credentials.</p>
+                
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <code>sqlmap -u "http://target.com/login" --data="username=admin&password=test" --dbs --batch</code>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 25px 0 15px;">Lessons Learned</h3>
+                <ul style="padding-left: 20px; line-height: 2;">
+                    <li>Always sanitize user inputs</li>
+                    <li>Use parameterized queries</li>
+                    <li>Implement proper error handling</li>
+                    <li>Regular security testing is essential</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <p style="color: var(--text-secondary);">Cybersecurity student passionate about securing the digital world through ethical hacking and research.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#writeups">Writeups</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com" target="_blank">GitHub</a></li>
+                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="mailto:email@example.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Your Name. All rights reserved. Built with ❤️ for cybersecurity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+        ↑
+    </button>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeBtn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('light-mode')) {
+                themeBtn.innerHTML = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeBtn.innerHTML = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('.theme-toggle').innerHTML = '☀️';
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Back to Top
+        window.addEventListener('scroll', () => {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Reading Progress
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('readingProgress').style.width = progress + '%';
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Skill Bars Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width') + '%';
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Project Filtering
+        function filterProjects(category, btn) {
+            document.querySelectorAll('#projectsGrid .project-card').forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll('#projects .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // Writeup Filtering
+        let currentWriteupCategory = 'all';
+
+        function filterWriteupsByCategory(category, btn) {
+            currentWriteupCategory = category;
+            
+            document.querySelectorAll('#writeupFilters .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            filterWriteups();
+        }
+
+        function filterWriteups() {
+            const searchTerm = document.getElementById('writeupSearch').value.toLowerCase();
+            
+            document.querySelectorAll('#writeupsGrid .writeup-card').forEach(card => {
+                const category = card.getAttribute('data-category');
+                const text = card.textContent.toLowerCase();
+                const matchesCategory = currentWriteupCategory === 'all' || category === currentWriteupCategory;
+                const matchesSearch = text.includes(searchTerm);
+                
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal
+        function openWriteup(type) {
+            document.getElementById('writeupModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('writeupModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Copy Code
+        function copyCode(btn) {
+            const codeBlock = btn.parentElement.querySelector('code');
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Contact Form
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Create toast
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
+            document.body.appendChild(toast);
+            
+            // Clear form
+            document.getElementById('contactForm').reset();
+            
+            // Remove toast after 3 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Download Resume
+        function downloadResume() {
+            // Create a simple text file as resume placeholder
+            const resumeContent = `YOUR NAME
+Cybersecurity Student | CTF Player | Ethical Hacking Enthusiast
+
+CONTACT
+Email: email@example.com
+GitHub: github.com/yourusername
+LinkedIn: linkedin.com/in/yourusername
+
+EDUCATION
+Bachelor of Science in Cybersecurity
+University Name | 2022 - 2026
+
+SKILLS
+- Web Security, Network Security, Reverse Engineering
+- Python, Bash, C, SQL
+- Burp Suite, Nmap, Wireshark, Ghidra, Metasploit
+
+CERTIFICATIONS
+- eJPT (2023)
+- CompTIA Security+ (2023)
+
+EXPERIENCE
+CTF Player | Active Participant
+- Participated in 50+ CTF competitions
+- Specialized in web exploitation and reverse engineering
+- Achieved top 10 in multiple national competitions`;
+
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'resume.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            // Show toast
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = '📥 Resume downloaded successfully!';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Image Zoom
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('zoomable')) {
+                e.target.classList.toggle('zoomed');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
