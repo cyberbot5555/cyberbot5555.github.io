@@ -217,6 +217,20 @@
             color: var(--primary);
         }
 
+        /* Typing animation cursor */
+        .typing-cursor {
+            display: inline-block;
+            color: var(--primary);
+            animation: blink 0.8s infinite;
+            font-weight: 800;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .hero-subtitle {
             font-size: 1.5rem;
             color: var(--text-secondary);
@@ -361,11 +375,24 @@
             border-radius: 16px;
             padding: 25px;
             transition: all 0.3s ease;
+            /* Floating animation added via JS for staggered effect, base state defined here */
+            will-change: transform;
         }
 
         .skill-card:hover {
             border-color: var(--primary);
             transform: translateY(-3px);
+        }
+
+        /* Floating animation class to be toggled by JS */
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
         }
 
         .skill-header {
@@ -422,6 +449,7 @@
             text-decoration: none;
             color: var(--text);
             display: block;
+            will-change: transform;
         }
 
         .writeup-card:hover {
@@ -512,6 +540,7 @@
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.3s ease;
+            will-change: transform;
         }
 
         .project-card:hover {
@@ -682,6 +711,7 @@
             padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
+            will-change: transform;
         }
 
         .cert-card:hover {
@@ -817,11 +847,21 @@
             transition: all 0.3s ease;
             box-shadow: var(--glow);
             z-index: 999;
+            /* Floating animation for back-to-top button */
+            animation: floatBtn 3s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes floatBtn {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
         }
 
         .back-to-top:hover {
             transform: translateY(-3px);
             box-shadow: 0 0 30px rgba(0, 180, 216, 0.4);
+            animation: none; /* disable float on hover for better UX */
         }
 
         .back-to-top.visible {
@@ -1138,8 +1178,9 @@
             <div class="hero-badge">
              🎯 Cybersecurity Professional
             </div>
+            <!-- Added id for typing target, kept original structure -->
             <h1 class="hero-title">
-                > Hi, I'm <span>CYB3R_B0T</span>
+                > Hi, I'm <span id="typing-target">CYB3R_B0T</span><span class="typing-cursor">|</span>
             </h1>
             <p class="hero-subtitle">Cybersecurity Student</p>
             <p class="hero-subtitle" style="font-size: 1.2rem;">CTF Player • Ethical Hacking Enthusiast</p>
@@ -1653,12 +1694,72 @@
     </button>
 
     <script>
+        // --- Animations & Interactions (Enhanced with Typing & Floating) ---
+
         // Loading Screen
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1000);
+                // Start typing animation after loader hides
+                initTypingAnimation();
+                // Add floating animation to cards with a slight delay for visual appeal
+                initFloatingAnimations();
+            }, 800);
         });
+
+        // Typing Animation Configuration
+        function initTypingAnimation() {
+            const targetElement = document.getElementById('typing-target');
+            if (!targetElement) return;
+            
+            const textToType = "CYB3R_B0T";
+            const typingSpeed = 80; // milliseconds per character
+            const cursorElement = document.querySelector('.typing-cursor');
+            
+            // Clear existing text and prepare for animation
+            targetElement.textContent = '';
+            let charIndex = 0;
+            
+            function typeNextChar() {
+                if (charIndex < textToType.length) {
+                    targetElement.textContent += textToType.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeNextChar, typingSpeed);
+                } else {
+                    // Optional: keep cursor blinking, it's already in the HTML
+                    if (cursorElement) {
+                        cursorElement.style.display = 'inline-block';
+                    }
+                }
+            }
+            
+            // Ensure cursor is visible during typing
+            if (cursorElement) {
+                cursorElement.style.display = 'inline-block';
+            }
+            
+            // Start typing after a short delay
+            setTimeout(typeNextChar, 400);
+        }
+
+        // Floating Animations for Cards
+        function initFloatingAnimations() {
+            // Select elements that should have a subtle floating effect
+            const floatElements = document.querySelectorAll('.skill-card, .project-card, .writeup-card, .cert-card');
+            
+            floatElements.forEach((el, index) => {
+                // Add a staggered delay to create a more natural, less uniform movement
+                const delay = (index % 3) * 0.4; // seconds
+                el.style.animation = `float 3s ease-in-out ${delay}s infinite`;
+                // Ensure hover effect still works by overriding animation on hover via CSS or JS
+                el.addEventListener('mouseenter', () => {
+                    el.style.animation = 'none';
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.animation = `float 3s ease-in-out ${delay}s infinite`;
+                });
+            });
+        }
 
         // Theme Toggle
         function toggleTheme() {
