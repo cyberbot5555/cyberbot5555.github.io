@@ -499,6 +499,34 @@
       .hero-title { font-size: 2.7rem; }
       .writeups-grid, .projects-grid { grid-template-columns: 1fr; }
     }
+        .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      padding: 12px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.25s ease;
+      animation: contactFloat 3s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .contact-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: var(--glow);
+      animation: none;
+    }
+
+    @keyframes contactFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
   </style>
 </head>
 <body>
@@ -584,8 +612,32 @@
   <section id="achievements" class="section"><div class="container"><h2 class="section-title"><span>></span> Achievements</h2><p class="section-subtitle">Milestones and accomplishments</p><div class="timeline" style="position:relative;padding-left:50px;"><div style="position:absolute;left:20px;top:0;bottom:0;width:2px;background:var(--primary);"></div><div style="position:relative;margin-bottom:40px;padding-left:30px;"><div style="position:absolute;left:-41px;top:5px;width:16px;height:16px;background:var(--primary);border-radius:50%;border:3px solid var(--bg);"></div><div style="font-family:'JetBrains Mono',monospace;color:var(--primary);font-size:0.9rem;margin-bottom:5px;">2024</div><div style="background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:20px;padding:20px;"><h3 style="color:var(--primary);margin-bottom:8px;">🏆 National CTF Finals - 3rd Place</h3><p>Secured 3rd position in the National Cybersecurity CTF Competition among 200+ teams.</p></div></div><div style="position:relative;margin-bottom:40px;padding-left:30px;"><div style="position:absolute;left:-41px;top:5px;width:16px;height:16px;background:var(--primary);border-radius:50%;border:3px solid var(--bg);"></div><div style="font-family:'JetBrains Mono',monospace;color:var(--primary);font-size:0.9rem;margin-bottom:5px;">2023</div><div style="background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:20px;padding:20px;"><h3 style="color:var(--primary);margin-bottom:8px;">🎤 Security Conference Speaker</h3><p>Presented "Modern Web Attack Vectors" at the Regional Cybersecurity Conference.</p></div></div><div style="position:relative;margin-bottom:40px;padding-left:30px;"><div style="position:absolute;left:-41px;top:5px;width:16px;height:16px;background:var(--primary);border-radius:50%;border:3px solid var(--bg);"></div><div style="font-family:'JetBrains Mono',monospace;color:var(--primary);font-size:0.9rem;margin-bottom:5px;">2022</div><div style="background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:20px;padding:20px;"><h3 style="color:var(--primary);margin-bottom:8px;">👥 Cybersecurity Club President</h3><p>Founded and led the university cybersecurity club, growing membership to 150+ students.</p></div></div></div></div></section>
 
   <!-- Contact -->
-  <section id="contact" class="section"><div class="container"><h2 class="section-title"><span>></span> Connect With Me</h2><p class="section-subtitle">Find me on these platforms</p><div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:24px;"><a href="#" style="display:flex;align-items:center;gap:12px;background:var(--card-bg);border:1px solid var(--glass-border);padding:12px 28px;border-radius:60px;text-decoration:none;color:var(--text);transition:0.2s;"><span style="font-size:1.8rem;">🔗</span> LinkedIn</a><a href="#" style="display:flex;align-items:center;gap:12px;background:var(--card-bg);border:1px solid var(--glass-border);padding:12px 28px;border-radius:60px;text-decoration:none;color:var(--text);transition:0.2s;"><span style="font-size:1.8rem;">⬡</span> GitHub</a><a href="#" style="display:flex;align-items:center;gap:12px;background:var(--card-bg);border:1px solid var(--glass-border);padding:12px 28px;border-radius:60px;text-decoration:none;color:var(--text);transition:0.2s;"><span style="font-size:1.8rem;">✉️</span> Email</a></div></div></section>
-
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title"><span>></span> Connect With Me</h2>
+    <p class="section-subtitle">Find me on these platforms</p>
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+      <a href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener noreferrer" class="contact-link" style="animation-delay: 0s;">
+        <span style="font-size:1.8rem;">🔗</span> LinkedIn
+      </a>
+      <a href="YOUR_GITHUB_URL" target="_blank" rel="noopener noreferrer" class="contact-link" style="animation-delay: 0.2s;">
+        <span style="font-size:1.8rem;">⬡</span> GitHub
+      </a>
+      <a href="mailto:YOUR_EMAIL_ADDRESS" class="contact-link" style="animation-delay: 0.4s;">
+        <span style="font-size:1.8rem;">✉️</span> Email
+      </a>
+      <a href="YOUR_TWITTER_URL" target="_blank" rel="noopener noreferrer" class="contact-link" style="animation-delay: 0.6s;">
+        <span style="font-size:1.8rem;">🐦</span> Twitter/X
+      </a>
+      <a href="YOUR_DISCORD_URL" target="_blank" rel="noopener noreferrer" class="contact-link" style="animation-delay: 0.8s;">
+        <span style="font-size:1.8rem;">💬</span> Discord
+      </a>
+      <a href="YOUR_YOUTUBE_URL" target="_blank" rel="noopener noreferrer" class="contact-link" style="animation-delay: 1s;">
+        <span style="font-size:1.8rem;">▶️</span> YouTube
+      </a>
+    </div>
+  </div>
+</section>
   <!-- Modal -->
   <div class="modal" id="writeupModal"><div class="modal-content"><button class="modal-close" onclick="closeModal()">✕</button><div id="writeupContent"><div class="writeup-badges"><span class="badge badge-category">Web Exploitation</span><span class="badge badge-medium">Medium</span></div><h2 style="font-size:2rem;margin:15px 0;">SQL Injection Mastery</h2><div class="writeup-meta"><span>📅 January 15, 2024</span><span>⏱️ 12 min read</span><span>🏠 HackTheBox</span></div><h3 style="color:var(--primary);margin:25px 0 15px;">Overview</h3><p>This writeup details the methodology used to exploit a SQL injection vulnerability in a web application, leading to authentication bypass and data extraction.</p><h3 style="color:var(--primary);margin:25px 0 15px;">Enumeration</h3><p>Initial enumeration revealed a login form that appeared to be vulnerable to SQL injection.</p><div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>' OR '1'='1' --<br>' UNION SELECT NULL, NULL, NULL --<br>' UNION SELECT NULL, @@version, NULL --</code></div><h3 style="color:var(--primary);margin:25px 0 15px;">Solution</h3><p>Using sqlmap, we automated the extraction process and obtained admin credentials.</p><div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button><code>sqlmap -u "http://target.com/login" --data="username=admin&password=test" --dbs --batch</code></div><h3 style="color:var(--primary);margin:25px 0 15px;">Lessons Learned</h3><ul style="padding-left:20px;line-height:2;"><li>Always sanitize user inputs</li><li>Use parameterized queries</li><li>Implement proper error handling</li><li>Regular security testing is essential</li></ul></div></div></div>
 
