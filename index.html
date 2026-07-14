@@ -576,20 +576,60 @@
 <!-- About -->
 <section id="about" class="section">
   <div class="container">
-    <h2 class="section-title"><span>></span> About Me</h2>
-    <p class="section-subtitle">Professional cybersecurity enthusiast & lifelong learner</p>
-    <div class="card" style="max-width:800px;margin:0 auto;animation: floatCard 3s ease-in-out infinite; will-change: transform;">
-      <div style="display:flex;gap:30px;align-items:start;flex-wrap:wrap;">
-        <div style="flex:1;min-width:200px;text-align:center;">
-          <div style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--primary),#a78bfa);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:3rem;box-shadow:var(--glow);animation: floatCard 2.5s ease-in-out infinite; animation-delay: 0.2s;">👤</div>
+    
+    <!-- Stylish Header - Centered -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 48px;">
+      
+      <!-- Terminal-style badge -->
+      <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(123, 97, 255, 0.08); border: 1px solid rgba(123, 97, 255, 0.2); border-radius: 60px; padding: 8px 24px; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary-soft); backdrop-filter: blur(4px); letter-spacing: 0.5px;">
+        <span style="display: flex; align-items: center; gap: 6px;">
+          <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #22c55e; animation: blink 1.5s infinite;"></span>
+          WHOAMI
+        </span>
+        <span style="color: var(--text-secondary);">•</span>
+        <span style="color: var(--text-secondary); font-size: 0.8rem;">USER_PROFILE</span>
+      </div>
+      
+      <!-- Main Title -->
+      <div style="position: relative; text-align: center;">
+        <h2 style="font-size: 3rem; font-weight: 800; margin: 0; line-height: 1.2; text-align: center;">
+          <span style="color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 700; text-shadow: 0 0 30px var(--primary-glow);">┌─</span>
+          <span style="background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 50%, var(--primary-soft) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            About Me
+          </span>
+          <span style="color: var(--primary); font-family: 'JetBrains Mono', monospace; font-weight: 700; text-shadow: 0 0 30px var(--primary-glow);">─┐</span>
+        </h2>
+        
+        <!-- Decorative underline -->
+        <div style="margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 12px;">
+          <span style="width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--primary)); border-radius: 3px;"></span>
+          <span style="color: var(--primary); font-size: 0.8rem; filter: drop-shadow(0 0 6px var(--primary-glow));">👤</span>
+          <span style="width: 80px; height: 3px; background: linear-gradient(90deg, var(--primary), transparent); border-radius: 3px;"></span>
         </div>
-        <div style="flex:2;min-width:280px;">
-          <p style="margin-bottom:15px;line-height:1.8;">I'm a passionate cybersecurity student with a deep interest in protecting digital assets and uncovering vulnerabilities. My journey into cybersecurity began with a curiosity about how systems work and how they can be secured.</p>
-          <p style="margin-bottom:15px;line-height:1.8;">I specialize in <strong>Web Security</strong>, <strong>Reverse Engineering</strong>, and <strong>Digital Forensics</strong>. I regularly participate in CTF competitions to sharpen my skills and stay updated with the latest security trends.</p>
+      </div>
+      
+      <!-- Subtitle with typing feel -->
+      <p style="margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 1rem; letter-spacing: 0.5px; text-align: center; color: var(--text-secondary);">
+        <span>$ </span>
+        <span style="color: var(--primary-soft);">whoami</span>
+        <span style="color: var(--primary); animation: blink 0.9s infinite;">▊</span>
+      </p>
+    </div>
+
+    <!-- About Card -->
+    <div class="card" style="max-width:800px; margin:0 auto; animation: floatCard 3s ease-in-out infinite; will-change: transform;">
+      <div style="display:flex; gap:30px; align-items:start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:200px; text-align:center;">
+          <div style="width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#a78bfa); margin:0 auto 20px; display:flex; align-items:center; justify-content:center; font-size:3rem; box-shadow:var(--glow); animation: floatCard 2.5s ease-in-out infinite; animation-delay: 0.2s;">👤</div>
+        </div>
+        <div style="flex:2; min-width:280px;">
+          <p style="margin-bottom:15px; line-height:1.8;">I'm a passionate cybersecurity student with a deep interest in protecting digital assets and uncovering vulnerabilities. My journey into cybersecurity began with a curiosity about how systems work and how they can be secured.</p>
+          <p style="margin-bottom:15px; line-height:1.8;">I specialize in <strong>Web Security</strong>, <strong>Reverse Engineering</strong>, and <strong>Digital Forensics</strong>. I regularly participate in CTF competitions to sharpen my skills and stay updated with the latest security trends.</p>
           <p style="line-height:1.8;">When I'm not hacking, I enjoy contributing to open-source security tools, writing technical blog posts, and mentoring newcomers to the field.</p>
         </div>
       </div>
     </div>
+    
   </div>
 </section>
  
