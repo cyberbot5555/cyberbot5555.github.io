@@ -1,1 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | CYB3R_B0T</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- 🔥 Load Firebase Config -->
+  <script src="firebase-config.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121f;
+      --surface-hover: #1c1c32;
+      --primary: #7b61ff;
+      --primary-glow: rgba(123, 97, 255, 0.3);
+      --primary-soft: #b8a6ff;
+      --text: #eaeef2;
+      --text-secondary: #9aa4b8;
+      --border: #2a2a44;
+      --card-bg: rgba(18, 18, 31, 0.7);
+      --glass-border: rgba(123, 97, 255, 0.15);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      --glow: 0 0 30px rgba(123, 97, 255, 0.25);
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    .light-mode {
+      --bg: #f5f7fc;
+      --surface: #ffffff;
+      --surface-hover: #edf0f8;
+      --primary: #5a3fd9;
+      --primary-glow: rgba(90, 63, 217, 0.2);
+      --primary-soft: #7b61ff;
+      --text: #161b26;
+      --text-secondary: #4a5568;
+      --border: #dce0eb;
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(90, 63, 217, 0.2);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      --glow: 0 0 30px rgba(90, 63, 217, 0.15);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.25s, color 0.2s;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-container {
+      max-width: 420px;
+      margin: 80px auto;
+      padding: 50px 40px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .login-container .logo {
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+    }
+
+    .login-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .login-container p {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+
+    .login-container .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .login-container .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .login-container .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .login-container .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .login-container .btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .login-container .btn:hover {
+      background: #6a4feb;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px var(--primary-glow);
+    }
+
+    .login-container .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .login-error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .login-error.visible {
+      display: block;
+    }
+
+    /* ===== ACCESS DENIED ===== */
+    .access-denied {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 60px 40px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      border: 1px solid var(--danger);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .access-denied .icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+    }
+
+    .access-denied h2 {
+      color: var(--danger);
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+    }
+
+    .access-denied p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .access-denied .btn {
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .access-denied .btn:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+    }
+
+    /* ===== DASHBOARD ===== */
+    .dashboard {
+      display: none;
+    }
+
+    .dashboard.visible {
+      display: block;
+    }
+
+    /* Header */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px 28px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .admin-header .left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-header .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), #a78bfa);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #fff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .admin-header h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .admin-header h1 span {
+      color: var(--primary-soft);
+      font-weight: 400;
+    }
+
+    .admin-header .right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .admin-header .user-email {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 6px 16px;
+      background: rgba(123, 97, 255, 0.08);
+      border-radius: 20px;
+      border: 1px solid rgba(123, 97, 255, 0.12);
+    }
+
+    .btn {
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      background: #6a4feb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+    }
+
+    .btn-xs {
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      border-radius: 20px;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .stat-box .number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-box .label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Form Cards */
+    .form-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-card h3 .badge {
+      font-size: 0.7rem;
+      padding: 2px 12px;
+      border-radius: 20px;
+      background: var(--primary-glow);
+      color: var(--primary-soft);
+      font-weight: 400;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .form-group label .required {
+      color: var(--danger);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-group select option {
+      background: var(--surface);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Table */
+    .table-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .table-container .table-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-container .table-header .count {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .table-container .table-header .count span {
+      color: var(--primary-soft);
+      font-weight: 600;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .table-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table-container th {
+      text-align: left;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      background: rgba(123, 97, 255, 0.03);
+      white-space: nowrap;
+    }
+
+    .table-container td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(42, 42, 68, 0.2);
+      font-size: 0.85rem;
+      vertical-align: middle;
+    }
+
+    .table-container tr:hover td {
+      background: rgba(123, 97, 255, 0.03);
+    }
+
+    .table-container .actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .table-container .empty-row td {
+      text-align: center;
+      padding: 40px 16px;
+      color: var(--text-secondary);
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .toast {
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      animation: slideIn 0.3s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toast .toast-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .toast .toast-message {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+
+    .toast .toast-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0 4px;
+    }
+
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+    .toast.info { border-color: var(--primary); }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Loading Spinner in tables */
+    .spinner-sm {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body { padding: 12px; }
+      .login-container { padding: 30px 20px; margin: 40px auto; }
+      .form-grid { grid-template-columns: 1fr; }
+      .admin-header { flex-direction: column; align-items: stretch; text-align: center; }
+      .admin-header .left { justify-content: center; }
+      .admin-header .right { justify-content: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .tabs { justify-content: center; }
+      .tab-btn { font-size: 0.7rem; padding: 8px 14px; }
+      .toast-container { left: 16px; right: 16px; max-width: none; }
+      .table-container .table-header { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat-box { padding: 14px; }
+      .stat-box .number { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- LOGIN SCREEN                                                  -->
+  <!-- ============================================================ -->
+  <div id="loginScreen">
+    <div class="login-container">
+      <div class="logo">🔐</div>
+      <h2>Admin Login</h2>
+      <p>Enter your credentials to manage the portfolio</p>
+      
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="loginEmail" placeholder="admin@cyberbot.com" value="admin@cyberbot.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter password" onkeydown="if(event.key==='Enter') login()">
+      </div>
+      
+      <button class="btn" id="loginBtn" onclick="login()">
+        <span id="loginBtnText">Login</span>
+      </button>
+      
+      <div class="login-error" id="loginError">Invalid email or password. Please try again.</div>
+      
+      <div style="margin-top:16px; font-size:0.75rem; color:var(--text-secondary); opacity:0.6;">
+        ⚠️ Only authorized admins can access
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ACCESS DENIED                                                 -->
+  <!-- ============================================================ -->
+  <div id="accessDenied" class="hidden">
+    <div class="access-denied">
+      <div class="icon">⛔</div>
+      <h2>Access Denied</h2>
+      <p>You are not authorized to access this admin panel.</p>
+      <button class="btn" onclick="logout()">Back to Login</button>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- DASHBOARD                                                     -->
+  <!-- ============================================================ -->
+  <div id="dashboard" class="dashboard">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="admin-header">
+        <div class="left">
+          <div class="logo-icon">⚙️</div>
+          <h1>Admin <span>Panel</span></h1>
+        </div>
+        <div class="right">
+          <span class="user-email" id="userEmail">admin@cyberbot.com</span>
+          <a href="https://cyberbot5555.github.io" target="_blank" class="btn btn-outline btn-sm">🌐 View Site</a>
+          <button class="btn btn-danger btn-sm" onclick="logout()">🚪 Logout</button>
+          <button class="btn btn-outline btn-sm" onclick="toggleTheme()" id="themeBtn">🌙</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-box">
+          <div class="number" id="statSkills">0</div>
+          <div class="label">💻 Skills</div>
+        </div>
+        <div class="stat-box">
+          <div class="number" id="statWriteups">0</div>
+          <div class="label">📝 Writeups</div>
+        </div>
+        <div class="stat-box">
+          <div class="number" id="statAchievements">0</div>
+          <div class="label">🏆 Achievements</div>
+        </div>
+        <div class="stat-box">
+          <div class="number" id="statCerts">0</div>
+          <div class="label">🎓 Certificates</div>
+        </div>
+        <div class="stat-box">
+          <div class="number" id="statProjects">0</div>
+          <div class="label">🚀 Projects</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="skills" onclick="switchTab('skills')">💻 Skills</button>
+        <button class="tab-btn" data-tab="writeups" onclick="switchTab('writeups')">📝 Writeups</button>
+        <button class="tab-btn" data-tab="achievements" onclick="switchTab('achievements')">🏆 Achievements</button>
+        <button class="tab-btn" data-tab="certificates" onclick="switchTab('certificates')">🎓 Certificates</button>
+        <button class="tab-btn" data-tab="projects" onclick="switchTab('projects')">🚀 Projects</button>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TAB: SKILLS                                                 -->
+      <!-- ========================================================== -->
+      <div id="tab-skills" class="tab-content active">
+
+        <!-- Add Form -->
+        <div class="form-card">
+          <h3>➕ Add New Skill</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Skill Name <span class="required">*</span></label>
+              <input id="skillName" placeholder="e.g., Python">
+            </div>
+            <div class="form-group">
+              <label>Category <span class="required">*</span></label>
+              <select id="skillCategory">
+                <option value="Programming">Programming</option>
+                <option value="Security">Security</option>
+                <option value="Tools">Tools</option>
+                <option value="Web">Web</option>
+                <option value="Network">Network</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Level (%) <span class="required">*</span></label>
+              <input id="skillLevel" type="number" placeholder="85" min="0" max="100">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="addSkill()">➕ Add Skill</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <span class="count">Total: <span id="skillCount">0</span> skills</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Level</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="skillsTableBody">
+                <tr class="empty-row"><td colspan="4">Loading skills...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TAB: WRITEUPS                                               -->
+      <!-- ========================================================== -->
+      <div id="tab-writeups" class="tab-content">
+
+        <!-- Add Form -->
+        <div class="form-card">
+          <h3>➕ Add New Writeup</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Title <span class="required">*</span></label>
+              <input id="writeupTitle" placeholder="SQL Injection Mastery">
+            </div>
+            <div class="form-group">
+              <label>Category <span class="required">*</span></label>
+              <select id="writeupCategory">
+                <option value="Web Exploitation">🌐 Web Exploitation</option>
+                <option value="Reverse Engineering">⚙️ Reverse Engineering</option>
+                <option value="Digital Forensics">🔬 Digital Forensics</option>
+                <option value="Cryptography">🔐 Cryptography</option>
+                <option value="OSINT">🕵️ OSINT</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Difficulty <span class="required">*</span></label>
+              <select id="writeupDifficulty">
+                <option value="Easy">✅ Easy</option>
+                <option value="Medium">⚡ Medium</option>
+                <option value="Hard">🔥 Hard</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input id="writeupDate" type="date">
+            </div>
+            <div class="form-group">
+              <label>Read Time (minutes)</label>
+              <input id="writeupReadTime" type="number" placeholder="12" min="1">
+            </div>
+            <div class="form-group">
+              <label>Platform</label>
+              <input id="writeupPlatform" placeholder="HackTheBox">
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea id="writeupDescription" placeholder="Brief description of the writeup..."></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Tags (comma separated)</label>
+              <input id="writeupTags" placeholder="SQL, Database, Auth Bypass">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="addWriteup()">➕ Add Writeup</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <span class="count">Total: <span id="writeupCount">0</span> writeups</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Difficulty</th>
+                  <th>Date</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="writeupsTableBody">
+                <tr class="empty-row"><td colspan="5">Loading writeups...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TAB: ACHIEVEMENTS                                           -->
+      <!-- ========================================================== -->
+      <div id="tab-achievements" class="tab-content">
+
+        <!-- Add Form -->
+        <div class="form-card">
+          <h3>➕ Add New Achievement</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Title <span class="required">*</span></label>
+              <input id="achievementTitle" placeholder="National CTF Finals 2024">
+            </div>
+            <div class="form-group">
+              <label>Year <span class="required">*</span></label>
+              <input id="achievementYear" placeholder="2024">
+            </div>
+            <div class="form-group">
+              <label>Badge Text</label>
+              <input id="achievementBadge" placeholder="🥉 3rd Place">
+            </div>
+            <div class="form-group">
+              <label>Icon (emoji)</label>
+              <input id="achievementIcon" placeholder="🏆" value="🏆">
+            </div>
+            <div class="form-group full-width">
+              <label>Description <span class="required">*</span></label>
+              <textarea id="achievementDescription" placeholder="Describe your achievement..."></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Tags (comma separated)</label>
+              <input id="achievementTags" placeholder="CTF, Competition, National">
+            </div>
+            <div class="form-group full-width">
+              <label>Stats (format: value1|label1, value2|label2, value3|label3)</label>
+              <input id="achievementStats" placeholder="200+|Teams, 15|Challenges, 48h|Duration">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="addAchievement()">➕ Add Achievement</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <span class="count">Total: <span id="achievementCount">0</span> achievements</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Year</th>
+                  <th>Badge</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="achievementsTableBody">
+                <tr class="empty-row"><td colspan="4">Loading achievements...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TAB: CERTIFICATES                                           -->
+      <!-- ========================================================== -->
+      <div id="tab-certificates" class="tab-content">
+
+        <!-- Add Form -->
+        <div class="form-card">
+          <h3>➕ Add New Certificate</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Title <span class="required">*</span></label>
+              <input id="certTitle" placeholder="eJPT Certification">
+            </div>
+            <div class="form-group">
+              <label>Issuer <span class="required">*</span></label>
+              <input id="certIssuer" placeholder="INE Security">
+            </div>
+            <div class="form-group">
+              <label>Completed Date</label>
+              <input id="certCompleted" placeholder="Jan 2024">
+            </div>
+            <div class="form-group">
+              <label>Verify Link</label>
+              <input id="certLink" placeholder="https://...">
+            </div>
+            <div class="form-group full-width">
+              <label>Skills (comma separated)</label>
+              <input id="certSkills" placeholder="Penetration Testing, Security">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="addCertificate()">➕ Add Certificate</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <span class="count">Total: <span id="certCount">0</span> certificates</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Issuer</th>
+                  <th>Completed</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="certsTableBody">
+                <tr class="empty-row"><td colspan="4">Loading certificates...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- TAB: PROJECTS                                               -->
+      <!-- ========================================================== -->
+      <div id="tab-projects" class="tab-content">
+
+        <!-- Add Form -->
+        <div class="form-card">
+          <h3>➕ Add New Project</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Title <span class="required">*</span></label>
+              <input id="projectTitle" placeholder="Project Name">
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="projectCategory">
+                <option value="Web Security">🌐 Web Security</option>
+                <option value="Reverse Engineering">⚙️ Reverse Engineering</option>
+                <option value="Forensics">🔬 Forensics</option>
+                <option value="OSINT">🕵️ OSINT</option>
+                <option value="Automation">🤖 Automation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="projectStatus">
+                <option value="Completed">✅ Completed</option>
+                <option value="In Progress">🔄 In Progress</option>
+                <option value="Planned">📋 Planned</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea id="projectDescription" placeholder="Project description..."></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Tech Stack (comma separated)</label>
+              <input id="projectTech" placeholder="Python, Flask, SQLite">
+            </div>
+            <div class="form-group full-width">
+              <label>Project Link</label>
+              <input id="projectLink" placeholder="https://github.com/...">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="addProject()">➕ Add Project</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <span class="count">Total: <span id="projectCount">0</span> projects</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projectsTableBody">
+                <tr class="empty-row"><td colspan="4">Loading projects...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TOAST CONTAINER                                               -->
+  <!-- ============================================================ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ============================================================ -->
+  <!-- 🔥 FIREBASE ADMIN SCRIPT                                      -->
+  <!-- ============================================================ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // =============================================================
+    // Initialize Firebase
+    // =============================================================
+    const app = initializeApp(window.firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const ALLOWED_ADMIN_EMAIL = window.ALLOWED_ADMIN_EMAIL || "admin@cyberbot.com";
+
+    let currentUser = null;
+    let collections = {
+      skills: [],
+      writeups: [],
+      achievements: [],
+      certificates: [],
+      projects: []
+    };
+
+    // =============================================================
+    // DOM References
+    // =============================================================
+    const loginScreen = document.getElementById('loginScreen');
+    const accessDenied = document.getElementById('accessDenied');
+    const dashboard = document.getElementById('dashboard');
+    const userEmailSpan = document.getElementById('userEmail');
+    const loginError = document.getElementById('loginError');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginBtnText = document.getElementById('loginBtnText');
+
+    // =============================================================
+    // Auth Functions
+    // =============================================================
+    window.login = async function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email || !password) {
+        showToast('Please enter email and password', 'error');
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loginBtnText.textContent = 'Logging in...';
+      loginError.classList.remove('visible');
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (user.email !== ALLOWED_ADMIN_EMAIL) {
+          await signOut(auth);
+          showAccessDenied();
+          showToast('Access Denied: Unauthorized email', 'error');
+          loginBtn.disabled = false;
+          loginBtnText.textContent = 'Login';
+          return;
+        }
+
+        currentUser = user;
+        showDashboard();
+        showToast('Welcome Admin! 🚀', 'success');
+
+      } catch (error) {
+        loginError.textContent = error.message;
+        loginError.classList.add('visible');
+        showToast('Login failed: ' + error.message, 'error');
+      }
+
+      loginBtn.disabled = false;
+      loginBtnText.textContent = 'Login';
+    };
+
+    window.logout = async function() {
+      await signOut(auth);
+      currentUser = null;
+      showLogin();
+      showToast('Logged out', 'info');
+    };
+
+    // =============================================================
+    // Auth State Listener
+    // =============================================================
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (user.email === ALLOWED_ADMIN_EMAIL) {
+          currentUser = user;
+          showDashboard();
+          userEmailSpan.textContent = user.email;
+          loadAllData();
+        } else {
+          signOut(auth);
+          showAccessDenied();
+        }
+      } else {
+        showLogin();
+      }
+    });
+
+    // =============================================================
+    // UI Functions
+    // =============================================================
+    function showLogin() {
+      loginScreen.style.display = 'block';
+      accessDenied.classList.add('hidden');
+      dashboard.classList.remove('visible');
+    }
+
+    function showDashboard() {
+      loginScreen.style.display = 'none';
+      accessDenied.classList.add('hidden');
+      dashboard.classList.add('visible');
+    }
+
+    function showAccessDenied() {
+      loginScreen.style.display = 'none';
+      accessDenied.classList.remove('hidden');
+      dashboard.classList.remove('visible');
+    }
+
+    // =============================================================
+    // Toast System
+    // =============================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const icons = {
+        success: '✅',
+        error: '❌',
+        info: 'ℹ️',
+        warning: '⚠️'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
+        <span class="toast-message">${message}</span>
+        <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        if (toast.parentElement) toast.remove();
+      }, 5000);
+    }
+
+    window.showToast = showToast;
+
+    // =============================================================
+    // Theme Toggle
+    // =============================================================
+    window.toggleTheme = function() {
+      document.body.classList.toggle('light-mode');
+      const btn = document.getElementById('themeBtn');
+      if (document.body.classList.contains('light-mode')) {
+        btn.innerHTML = '☀️';
+        localStorage.setItem('theme', 'light');
+      } else {
+        btn.innerHTML = '🌙';
+        localStorage.setItem('theme', 'dark');
+      }
+    };
+
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+      document.getElementById('themeBtn').innerHTML = '☀️';
+    }
+
+    // =============================================================
+    // Tab Switching
+    // =============================================================
+    window.switchTab = function(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
+    };
+
+    // =============================================================
+    // Load All Data
+    // =============================================================
+    async function loadAllData() {
+      await Promise.all([
+        loadCollection('skills', 'skillsTableBody', renderSkillRow),
+        loadCollection('writeups', 'writeupsTableBody', renderWriteupRow),
+        loadCollection('achievements', 'achievementsTableBody', renderAchievementRow),
+        loadCollection('certificates', 'certsTableBody', renderCertRow),
+        loadCollection('projects', 'projectsTableBody', renderProjectRow)
+      ]);
+      updateStats();
+    }
+
+    async function loadCollection(collectionName, tableId, renderFn) {
+      try {
+        const snapshot = await getDocs(collection(db, collectionName));
+        collections[collectionName] = [];
+        snapshot.forEach(doc => {
+          collections[collectionName].push({ id: doc.id, ...doc.data() });
+        });
+        renderTable(tableId, collections[collectionName], renderFn);
+        updateCount(collectionName);
+      } catch (error) {
+        console.error('Error loading', collectionName, error);
+        const tbody = document.getElementById(tableId);
+        if (tbody) tbody.innerHTML = `<tr class="empty-row"><td colspan="10">Error loading data</td></tr>`;
+      }
+    }
+
+    function renderTable(tableId, data, renderFn) {
+      const tbody = document.getElementById(tableId);
+      if (!tbody) return;
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="10">No items yet. Add one above!</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = data.map(item => renderFn(item)).join('');
+    }
+
+    function updateCount(collectionName) {
+      const map = {
+        skills: 'skillCount',
+        writeups: 'writeupCount',
+        achievements: 'achievementCount',
+        certificates: 'certCount',
+        projects: 'projectCount'
+      };
+      const el = document.getElementById(map[collectionName]);
+      if (el) el.textContent = collections[collectionName].length;
+    }
+
+    function updateStats() {
+      document.getElementById('statSkills').textContent = collections.skills.length;
+      document.getElementById('statWriteups').textContent = collections.writeups.length;
+      document.getElementById('statAchievements').textContent = collections.achievements.length;
+      document.getElementById('statCerts').textContent = collections.certificates.length;
+      document.getElementById('statProjects').textContent = collections.projects.length;
+    }
+
+    // =============================================================
+    // Render Functions
+    // =============================================================
+    function renderSkillRow(item) {
+      return `<tr>
+        <td><strong>${escapeHtml(item.name)}</strong></td>
+        <td>${escapeHtml(item.category)}</td>
+        <td><span style="color:var(--primary);font-weight:600;">${item.level}%</span></td>
+        <td style="text-align:right;">
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('skills','${item.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }
+
+    function renderWriteupRow(item) {
+      const diffColors = {
+        'Easy': '#34d399',
+        'Medium': '#fbbf24',
+        'Hard': '#f87171'
+      };
+      return `<tr>
+        <td><strong>${escapeHtml(item.title)}</strong></td>
+        <td>${escapeHtml(item.category)}</td>
+        <td><span style="color:${diffColors[item.difficulty] || '#fbbf24'};font-weight:600;">${item.difficulty || 'Medium'}</span></td>
+        <td>${item.date || 'N/A'}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('writeups','${item.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }
+
+    function renderAchievementRow(item) {
+      return `<tr>
+        <td><strong>${escapeHtml(item.title)}</strong></td>
+        <td>${item.year || 'N/A'}</td>
+        <td>${item.badge || ''}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('achievements','${item.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }
+
+    function renderCertRow(item) {
+      return `<tr>
+        <td><strong>${escapeHtml(item.title)}</strong></td>
+        <td>${escapeHtml(item.issuer)}</td>
+        <td>${item.completed || 'N/A'}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('certificates','${item.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }
+
+    function renderProjectRow(item) {
+      const statusColors = {
+        'Completed': '#34d399',
+        'In Progress': '#fbbf24',
+        'Planned': '#60a5fa'
+      };
+      return `<tr>
+        <td><strong>${escapeHtml(item.title)}</strong></td>
+        <td>${escapeHtml(item.category)}</td>
+        <td><span style="color:${statusColors[item.status] || '#fbbf24'};font-weight:600;">${item.status || 'Planned'}</span></td>
+        <td style="text-align:right;">
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('projects','${item.id}')">🗑️</button>
+        </td>
+      </tr>`;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // =============================================================
+    // CRUD Operations
+    // =============================================================
+
+    // --- ADD SKILL ---
+    window.addSkill = async function() {
+      const name = document.getElementById('skillName').value.trim();
+      const category = document.getElementById('skillCategory').value;
+      const level = parseInt(document.getElementById('skillLevel').value);
+
+      if (!name || !level) {
+        showToast('Please fill all required fields', 'error');
+        return;
+      }
+      if (level < 0 || level > 100) {
+        showToast('Level must be between 0 and 100', 'error');
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'skills'), { name, category, level });
+        document.getElementById('skillName').value = '';
+        document.getElementById('skillLevel').value = '';
+        showToast('✅ Skill added!', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // --- ADD WRITEUP ---
+    window.addWriteup = async function() {
+      const title = document.getElementById('writeupTitle').value.trim();
+      const category = document.getElementById('writeupCategory').value;
+      const difficulty = document.getElementById('writeupDifficulty').value;
+      const date = document.getElementById('writeupDate').value;
+      const readTime = parseInt(document.getElementById('writeupReadTime').value) || 0;
+      const platform = document.getElementById('writeupPlatform').value.trim();
+      const description = document.getElementById('writeupDescription').value.trim();
+      const tags = document.getElementById('writeupTags').value.split(',').map(t => t.trim()).filter(Boolean);
+
+      if (!title) {
+        showToast('Please enter a title', 'error');
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'writeups'), {
+          title, category, difficulty, date, readTime, platform, description, tags
+        });
+        document.getElementById('writeupTitle').value = '';
+        document.getElementById('writeupDate').value = '';
+        document.getElementById('writeupPlatform').value = '';
+        document.getElementById('writeupDescription').value = '';
+        document.getElementById('writeupTags').value = '';
+        document.getElementById('writeupReadTime').value = '';
+        showToast('✅ Writeup added!', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // --- ADD ACHIEVEMENT ---
+    window.addAchievement = async function() {
+      const title = document.getElementById('achievementTitle').value.trim();
+      const year = document.getElementById('achievementYear').value.trim();
+      const badge = document.getElementById('achievementBadge').value.trim();
+      const icon = document.getElementById('achievementIcon').value.trim() || '🏆';
+      const description = document.getElementById('achievementDescription').value.trim();
+      const tags = document.getElementById('achievementTags').value.split(',').map(t => t.trim()).filter(Boolean);
+      const statsRaw = document.getElementById('achievementStats').value.trim();
+
+      if (!title || !year || !description) {
+        showToast('Please fill title, year and description', 'error');
+        return;
+      }
+
+      // Parse stats
+      let stats = [];
+      if (statsRaw) {
+        stats = statsRaw.split(',').map(s => {
+          const parts = s.split('|');
+          if (parts.length === 2) {
+            return { value: parts[0].trim(), label: parts[1].trim() };
+          }
+          return null;
+        }).filter(Boolean);
+      }
+
+      try {
+        await addDoc(collection(db, 'achievements'), {
+          title, year, badge, icon, description, tags, stats,
+          color: 'linear-gradient(90deg, #7b61ff, #a78bfa)',
+          iconBg: 'linear-gradient(135deg, rgba(123,97,255,0.2), rgba(167,139,250,0.2))',
+          iconBorder: 'rgba(123,97,255,0.3)',
+          badgeColor: '#fbbf24',
+          badgeBg: 'rgba(245,158,11,0.12)',
+          badgeBorder: 'rgba(245,158,11,0.25)',
+          glowColor: 'radial-gradient(circle, rgba(123,97,255,0.15) 0%, transparent 70%)'
+        });
+        document.getElementById('achievementTitle').value = '';
+        document.getElementById('achievementYear').value = '';
+        document.getElementById('achievementBadge').value = '';
+        document.getElementById('achievementIcon').value = '🏆';
+        document.getElementById('achievementDescription').value = '';
+        document.getElementById('achievementTags').value = '';
+        document.getElementById('achievementStats').value = '';
+        showToast('✅ Achievement added!', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // --- ADD CERTIFICATE ---
+    window.addCertificate = async function() {
+      const title = document.getElementById('certTitle').value.trim();
+      const issuer = document.getElementById('certIssuer').value.trim();
+      const completed = document.getElementById('certCompleted').value.trim();
+      const link = document.getElementById('certLink').value.trim();
+      const skills = document.getElementById('certSkills').value.split(',').map(t => t.trim()).filter(Boolean);
+
+      if (!title || !issuer) {
+        showToast('Please fill title and issuer', 'error');
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'certificates'), {
+          title, issuer, completed, link, skills,
+          color: 'linear-gradient(90deg, #7b61ff, #a78bfa)',
+          icon: '🎓',
+          iconBg: 'linear-gradient(135deg, rgba(123,97,255,0.15), rgba(167,139,250,0.15))',
+          iconBorder: 'rgba(123,97,255,0.3)',
+          issuerBg: 'rgba(123,97,255,0.1)',
+          issuerBorder: 'rgba(123,97,255,0.2)',
+          issuerColor: 'var(--primary-soft)',
+          subtitle: 'Professional Certification'
+        });
+        document.getElementById('certTitle').value = '';
+        document.getElementById('certIssuer').value = '';
+        document.getElementById('certCompleted').value = '';
+        document.getElementById('certLink').value = '';
+        document.getElementById('certSkills').value = '';
+        showToast('✅ Certificate added!', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // --- ADD PROJECT ---
+    window.addProject = async function() {
+      const title = document.getElementById('projectTitle').value.trim();
+      const category = document.getElementById('projectCategory').value;
+      const status = document.getElementById('projectStatus').value;
+      const description = document.getElementById('projectDescription').value.trim();
+      const tech = document.getElementById('projectTech').value.split(',').map(t => t.trim()).filter(Boolean);
+      const link = document.getElementById('projectLink').value.trim();
+
+      if (!title) {
+        showToast('Please enter a title', 'error');
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'projects'), {
+          title, category, status, description, tech, link,
+          color: 'linear-gradient(90deg, #7b61ff, #a78bfa)'
+        });
+        document.getElementById('projectTitle').value = '';
+        document.getElementById('projectDescription').value = '';
+        document.getElementById('projectTech').value = '';
+        document.getElementById('projectLink').value = '';
+        showToast('✅ Project added!', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // --- DELETE ITEM ---
+    window.deleteItem = async function(collectionName, id) {
+      if (!confirm('Delete this item?')) return;
+      try {
+        await deleteDoc(doc(db, collectionName, id));
+        showToast('🗑️ Deleted successfully', 'success');
+        loadAllData();
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // =============================================================
+    // Enter key support for login
+    // =============================================================
+    document.getElementById('loginPassword').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') window.login();
+    });
+
+    // =============================================================
+    // Login on Enter for email field too
+    // =============================================================
+    document.getElementById('loginEmail').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') window.login();
+    });
+
+    console.log('🔥 Admin panel ready!');
+    console.log('📧 Allowed admin email:', ALLOWED_ADMIN_EMAIL);
+  </script>
+
+</body>
+</html>
