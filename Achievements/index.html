@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Achievements | CYB3R_B0T</title>
+  <title>ACHIEVEMENTS | CYB3R_B0T</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- 🔥 Load Firebase Config -->
-  <script src="firebase-config.js"></script>
-  
   <style>
     * {
       margin: 0;
@@ -65,7 +61,7 @@
       padding: 0 24px;
     }
 
-    /* ===== NAVBAR ===== */
+    /* --- NAVBAR --- */
     .navbar {
       position: fixed;
       top: 16px;
@@ -172,9 +168,9 @@
       transform: scale(1.05);
     }
 
-    /* ===== HERO ===== */
+    /* Hero Header */
     .hero {
-      min-height: 35vh;
+      min-height: 40vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -226,21 +222,6 @@
       letter-spacing: 0.5px;
     }
 
-    .hero-badge .dot {
-      width: 8px;
-      height: 8px;
-      background: #22c55e;
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 8px #22c55e;
-      animation: blink 1.5s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
     .hero-title {
       font-size: 3.5rem;
       font-weight: 800;
@@ -248,7 +229,7 @@
       line-height: 1.2;
     }
 
-    .hero-title .gradient {
+    .hero-title span {
       background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 50%, var(--primary-soft) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -285,7 +266,7 @@
       box-shadow: 0 12px 36px var(--primary-glow);
     }
 
-    /* ===== SECTION ===== */
+    /* Section */
     .section {
       padding: 60px 0 80px;
     }
@@ -309,11 +290,11 @@
       font-size: 1.1rem;
     }
 
-    /* ===== STATS ===== */
+    /* Stats Counter */
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
       margin-bottom: 48px;
     }
 
@@ -322,7 +303,7 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
-      padding: 24px 20px;
+      padding: 28px 20px;
       text-align: center;
       transition: all 0.3s ease;
     }
@@ -334,7 +315,7 @@
     }
 
     .stat-number {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       font-weight: 800;
       background: linear-gradient(135deg, var(--primary), #a78bfa);
       -webkit-background-clip: text;
@@ -343,13 +324,13 @@
     }
 
     .stat-label {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
       font-family: 'JetBrains Mono', monospace;
       margin-top: 4px;
     }
 
-    /* ===== ACHIEVEMENTS GRID ===== */
+    /* Achievements Grid */
     .achievements-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -410,8 +391,6 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
     }
 
     .achievement-card .card-icon {
@@ -448,9 +427,17 @@
     .achievement-card .card-title {
       font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: var(--text);
       line-height: 1.4;
+    }
+
+    .achievement-card .card-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--primary-soft);
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
     }
 
     .achievement-card .card-description {
@@ -472,23 +459,21 @@
       background: rgba(123, 97, 255, 0.04);
       border-radius: 16px;
       border: 1px solid rgba(123, 97, 255, 0.08);
-      flex-wrap: wrap;
     }
 
     .achievement-card .card-stats .stat-item {
       text-align: center;
       flex: 1;
-      min-width: 60px;
     }
 
     .achievement-card .card-stats .stat-value {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--primary-soft);
     }
 
     .achievement-card .card-stats .stat-label-sm {
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       font-family: 'JetBrains Mono', monospace;
     }
@@ -512,7 +497,31 @@
       color: var(--text-secondary);
     }
 
-    /* ===== LOADING ===== */
+    /* Footer */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--glass-border);
+      padding: 40px 0 30px;
+      margin-top: 40px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .footer-bottom a {
+      color: var(--primary-soft);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+    }
+
+    /* Loading */
     .loader {
       position: fixed;
       inset: 0;
@@ -542,59 +551,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .empty-state .icon {
-      font-size: 4rem;
-      margin-bottom: 16px;
-    }
-
-    .empty-state h3 {
-      font-size: 1.5rem;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .empty-state a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .empty-state a:hover {
-      color: var(--primary-soft);
-    }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      background: var(--surface);
-      border-top: 1px solid var(--glass-border);
-      padding: 40px 0 30px;
-      margin-top: 40px;
-    }
-
-    .footer-bottom {
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .footer-bottom a {
-      color: var(--primary-soft);
-      text-decoration: none;
-    }
-
-    .footer-bottom a:hover {
-      color: var(--primary);
-    }
-
-    /* ===== RESPONSIVE ===== */
+    /* Responsive */
     @media (max-width: 768px) {
       .navbar {
         top: 12px;
@@ -613,21 +570,6 @@
 
       .stats-row {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .achievement-card .card-header {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .achievement-card .card-stats {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .achievement-card .card-stats .stat-divider {
-        display: none;
       }
     }
 
@@ -645,12 +587,13 @@
         padding: 24px;
       }
 
-      .stats-row {
-        grid-template-columns: 1fr 1fr;
+      .achievement-card .card-stats {
+        flex-direction: column;
+        gap: 8px;
       }
 
-      .stat-number {
-        font-size: 1.8rem;
+      .achievement-card .card-stats .stat-divider {
+        display: none;
       }
     }
   </style>
@@ -660,7 +603,7 @@
   <!-- Loader -->
   <div class="loader" id="loader"><div class="spinner"></div></div>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- NAVBAR -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="container navbar-content">
       <a href="https://cyberbot5555.github.io" class="nav-logo">
@@ -672,19 +615,19 @@
     </div>
   </nav>
 
-  <!-- ===== HERO ===== -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">
-        <span class="dot"></span>
-        ALL ACHIEVEMENTS
+        <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #22c55e; animation: blink 1.5s infinite;"></span>
+        ACHIEVEMENTS
         <span style="color: var(--text-secondary);">•</span>
         HALL_OF_FAME
       </div>
       <h1 class="hero-title">
-        <span style="color: var(--primary); font-family: 'JetBrains Mono';">┌─</span>
-        <span class="gradient">All Achievements</span>
-        <span style="color: var(--primary); font-family: 'JetBrains Mono';">─┐</span>
+        <span>┌─</span>
+        <span>All Achievements</span>
+        <span>─┐</span>
       </h1>
       <p class="hero-subtitle">
         A comprehensive collection of my cybersecurity milestones, competition results, and community contributions.
@@ -693,43 +636,459 @@
     </div>
   </section>
 
-  <!-- ===== ACHIEVEMENTS SECTION ===== -->
+  <!-- ACHIEVEMENTS SECTION -->
   <section class="section">
     <div class="container">
 
-      <!-- Stats Row -->
-      <div class="stats-row" id="statsRow">
+      <!-- Stats Counter -->
+      <div class="stats-row">
         <div class="stat-card">
-          <div class="stat-number" id="totalCount">0</div>
-          <div class="stat-label">🏆 Total Achievements</div>
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Total Achievements</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="ctfCount">0</div>
-          <div class="stat-label">🚩 CTF Competitions</div>
+          <div class="stat-number">5+</div>
+          <div class="stat-label">CTF Competitions</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="volunteerCount">0</div>
-          <div class="stat-label">🤝 Volunteering</div>
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Open Source Projects</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="otherCount">0</div>
-          <div class="stat-label">📌 Other Achievements</div>
+          <div class="stat-number">2</div>
+          <div class="stat-label">Conference Volunteering</div>
         </div>
       </div>
 
-      <!-- Achievements Grid -->
-      <div class="achievements-grid" id="achievementsGrid">
-        <div class="empty-state">
-          <div class="icon">🏆</div>
-          <h3>Loading Achievements...</h3>
-          <p>Please wait while we fetch all achievements.</p>
-        </div>
-      </div>
+      <!-- All Achievements Grid -->
+      <div class="achievements-grid">
 
+        <!-- Achievement 1 - National CTF Finals 2024 -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2)); border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);">🏆</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #fbbf24; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25);">
+                <span>🥉</span> 3rd Place
+              </span>
+            </div>
+            <h3 class="card-title">National CTF Finals 2024</h3>
+            <p class="card-description">
+              Secured <strong>3rd position</strong> in the National Cybersecurity CTF Competition among <strong>200+ teams</strong> nationwide. Solved challenges in web exploitation, reverse engineering, and cryptography.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">200+</div>
+                <div class="stat-label-sm">Teams</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">15</div>
+                <div class="stat-label-sm">Challenges</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">48h</div>
+                <div class="stat-label-sm">Duration</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">CTF</span>
+              <span class="tag">Competition</span>
+              <span class="tag">National</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 2 - DIU CyberCon 2025 -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2)); border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);">👥</div>
+                <span class="card-year">2025</span>
+              </div>
+              <span class="card-badge" style="color: #60a5fa; background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.25);">Volunteer</span>
+            </div>
+            <h3 class="card-title">DIU CyberCon 2025</h3>
+            <p class="card-description">
+              Served as a <strong>Volunteer</strong> at <strong>DIU CyberCon 2025</strong>, contributing to event coordination, participant registration, logistics, and technical support. Collaborated with the organizing team to ensure the smooth execution of cybersecurity workshops, competitions, and conference sessions.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">Event</div>
+                <div class="stat-label-sm">Operations</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Team</div>
+                <div class="stat-label-sm">Collaboration</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Tech</div>
+                <div class="stat-label-sm">Support</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Volunteer</span>
+              <span class="tag">Cybersecurity</span>
+              <span class="tag">Event Management</span>
+              <span class="tag">Technical Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 3 - Cyber Security Club Organizing Secretary -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #ec4899, #f43f5e);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(244, 63, 94, 0.2)); border: 1px solid rgba(236, 72, 153, 0.3); box-shadow: 0 8px 24px rgba(236, 72, 153, 0.2);">👥</div>
+                <span class="card-year">2026</span>
+              </div>
+              <span class="card-badge" style="color: #f472b6; background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.25);">
+                <span>📋</span> Organizing Secretary
+              </span>
+            </div>
+            <h3 class="card-title">Cyber Security Club</h3>
+            <p class="card-subtitle">Daffodil International University</p>
+            <p class="card-description">
+              Serving as the <strong>Organizing Secretary</strong> of DIU Cyber Security Club, coordinating <strong>workshops &amp; CTF events</strong>. Managing club operations and fostering cybersecurity awareness among students.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">8+</div>
+                <div class="stat-label-sm">Events Organized</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">200+</div>
+                <div class="stat-label-sm">Participants</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">DIU</div>
+                <div class="stat-label-sm">Campus</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Leadership</span>
+              <span class="tag">Event Management</span>
+              <span class="tag">Cybersecurity</span>
+              <span class="tag">DIU</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 4 - Bug Bounty Hunter -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #22c55e, #16a34a);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2)); border: 1px solid rgba(34, 197, 94, 0.3); box-shadow: 0 8px 24px rgba(34, 197, 94, 0.2);">🐛</div>
+                <span class="card-year">2024-2025</span>
+              </div>
+              <span class="card-badge" style="color: #22c55e; background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.25);">
+                <span>💰</span> Bug Bounty
+              </span>
+            </div>
+            <h3 class="card-title">Responsible Disclosure</h3>
+            <p class="card-description">
+              Successfully identified and reported <strong>5+ security vulnerabilities</strong> across various bug bounty programs. Received recognition and bounties for responsible disclosure of critical and high-severity issues.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">5+</div>
+                <div class="stat-label-sm">Vulnerabilities</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Critical</div>
+                <div class="stat-label-sm">Severity</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Paid</div>
+                <div class="stat-label-sm">Bounties</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Bug Bounty</span>
+              <span class="tag">Web Security</span>
+              <span class="tag">Responsible Disclosure</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 5 - TryHackMe Top 1% -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #c11118, #8b0000);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(193, 17, 24, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(193, 17, 24, 0.2), rgba(139, 0, 0, 0.2)); border: 1px solid rgba(193, 17, 24, 0.3); box-shadow: 0 8px 24px rgba(193, 17, 24, 0.2);">🏅</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #f87171; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25);">
+                <span>⭐</span> Top 1%
+              </span>
+            </div>
+            <h3 class="card-title">TryHackMe Top 1%</h3>
+            <p class="card-description">
+              Achieved <strong>Top 1% ranking</strong> on TryHackMe globally. Completed <strong>100+ rooms</strong> across various cybersecurity domains including web, network, and reverse engineering.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">Top 1%</div>
+                <div class="stat-label-sm">Global Rank</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">100+</div>
+                <div class="stat-label-sm">Rooms Completed</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">THM</div>
+                <div class="stat-label-sm">Platform</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">TryHackMe</span>
+              <span class="tag">Cybersecurity</span>
+              <span class="tag">Learning</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 6 - Open Source Contributor -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #f97316, #ea580c);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2)); border: 1px solid rgba(249, 115, 22, 0.3); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);">📦</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #fbbf24; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25);">
+                <span>🚀</span> Contributor
+              </span>
+            </div>
+            <h3 class="card-title">Open Source Contributions</h3>
+            <p class="card-description">
+              Contributed to <strong>multiple open-source cybersecurity tools</strong> including security scanners and penetration testing frameworks. Fixed bugs, added features, and improved documentation for the community.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">3+</div>
+                <div class="stat-label-sm">Projects</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">10+</div>
+                <div class="stat-label-sm">PRs Merged</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">OSS</div>
+                <div class="stat-label-sm">Community</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Open Source</span>
+              <span class="tag">Security Tools</span>
+              <span class="tag">Community</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 7 - DIU CyberCon 2024 Volunteer -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #8b5cf6, #6d28d9);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(109, 40, 217, 0.2)); border: 1px solid rgba(139, 92, 246, 0.3); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);">🤝</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #a78bfa; background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.25);">Volunteer</span>
+            </div>
+            <h3 class="card-title">DIU CyberCon 2024</h3>
+            <p class="card-description">
+              Volunteered at <strong>DIU CyberCon 2024</strong>, assisting with <strong>workshop coordination</strong>, participant management, and technical setup. Helped create a smooth experience for 150+ attendees.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">150+</div>
+                <div class="stat-label-sm">Attendees</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">5</div>
+                <div class="stat-label-sm">Workshops</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">DIU</div>
+                <div class="stat-label-sm">Campus</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Volunteer</span>
+              <span class="tag">Event Coordination</span>
+              <span class="tag">DIU</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 8 - HackTheBox Top 5% -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #9fef00, #6b9e00);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(159, 239, 0, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(159, 239, 0, 0.2), rgba(107, 158, 0, 0.2)); border: 1px solid rgba(159, 239, 0, 0.3); box-shadow: 0 8px 24px rgba(159, 239, 0, 0.2);">🖥️</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #9fef00; background: rgba(159, 239, 0, 0.12); border: 1px solid rgba(159, 239, 0, 0.25);">
+                <span>⭐</span> Top 5%
+              </span>
+            </div>
+            <h3 class="card-title">HackTheBox Top 5%</h3>
+            <p class="card-description">
+              Ranked in the <strong>Top 5%</strong> of HackTheBox users. Solved <strong>40+ machines</strong> across various difficulty levels including easy, medium, and hard. Specialized in web and forensics challenges.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">Top 5%</div>
+                <div class="stat-label-sm">Global Rank</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">40+</div>
+                <div class="stat-label-sm">Machines</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">HTB</div>
+                <div class="stat-label-sm">Platform</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">HackTheBox</span>
+              <span class="tag">CTF</span>
+              <span class="tag">Pentesting</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 9 - Google Cybersecurity Certificate -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #4285f4, #34a853);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(66, 133, 244, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(66, 133, 244, 0.2), rgba(52, 168, 83, 0.2)); border: 1px solid rgba(66, 133, 244, 0.3); box-shadow: 0 8px 24px rgba(66, 133, 244, 0.2);">📜</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #34a853; background: rgba(52, 168, 83, 0.12); border: 1px solid rgba(52, 168, 83, 0.25);">
+                <span>✅</span> Certified
+              </span>
+            </div>
+            <h3 class="card-title">Google Cybersecurity Certificate</h3>
+            <p class="card-description">
+              Completed the <strong>Google Cybersecurity Professional Certificate</strong> on Coursera. Covered topics including <strong>network security, incident response, Python for security, and SIEM tools</strong>.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">8</div>
+                <div class="stat-label-sm">Courses</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Google</div>
+                <div class="stat-label-sm">Provider</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">Coursera</div>
+                <div class="stat-label-sm">Platform</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Google</span>
+              <span class="tag">Certificate</span>
+              <span class="tag">Cybersecurity</span>
+              <span class="tag">Coursera</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement 10 - CTF Workshop Speaker -->
+        <div class="achievement-card">
+          <div class="card-top" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+          <div class="card-body">
+            <div class="card-glow" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);"></div>
+            <div class="card-header">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="card-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2)); border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);">🎤</div>
+                <span class="card-year">2024</span>
+              </div>
+              <span class="card-badge" style="color: #fbbf24; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25);">
+                <span>📢</span> Speaker
+              </span>
+            </div>
+            <h3 class="card-title">CTF Workshop Speaker</h3>
+            <p class="card-description">
+              Delivered a <strong>CTF workshop</strong> at DIU Cyber Security Club, teaching <strong>50+ students</strong> about web exploitation, reverse engineering, and forensic challenges. Helped beginners start their CTF journey.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">50+</div>
+                <div class="stat-label-sm">Students</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div class="stat-label-sm">Topics</div>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <div class="stat-value">DIU</div>
+                <div class="stat-label-sm">Campus</div>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Speaker</span>
+              <span class="tag">Workshop</span>
+              <span class="tag">CTF</span>
+              <span class="tag">DIU</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
@@ -738,155 +1097,16 @@
     </div>
   </footer>
 
-  <!-- ============================================================ -->
-  <!-- 🔥 FIREBASE SCRIPT                                            -->
-  <!-- ============================================================ -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  <script>
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 400);
+    });
 
-    // Initialize Firebase
-    const app = initializeApp(window.firebaseConfig);
-    const db = getFirestore(app);
-
-    console.log('🔥 Achievements page initialized!');
-
-    // =============================================================
-    // Load All Achievements
-    // =============================================================
-    async function loadAchievements() {
-      const container = document.getElementById('achievementsGrid');
-      if (!container) return;
-
-      try {
-        const snapshot = await getDocs(collection(db, 'achievements'));
-
-        if (snapshot.empty) {
-          container.innerHTML = `
-            <div class="empty-state">
-              <div class="icon">🏆</div>
-              <h3>No Achievements Yet</h3>
-              <p>Check back later for new achievements! <a href="https://cyberbot5555.github.io">← Back to Portfolio</a></p>
-            </div>
-          `;
-          updateStats([]);
-          return;
-        }
-
-        let achievements = [];
-        snapshot.forEach(doc => {
-          achievements.push({ id: doc.id, ...doc.data() });
-        });
-
-        // Sort by year (newest first)
-        achievements.sort((a, b) => {
-          const yearA = parseInt(a.year) || 0;
-          const yearB = parseInt(b.year) || 0;
-          return yearB - yearA;
-        });
-
-        renderAchievements(achievements);
-        updateStats(achievements);
-
-      } catch (error) {
-        console.error('Error loading achievements:', error);
-        container.innerHTML = `
-          <div class="empty-state">
-            <div class="icon">❌</div>
-            <h3>Error Loading Achievements</h3>
-            <p>${error.message}</p>
-            <a href="https://cyberbot5555.github.io">← Back to Portfolio</a>
-          </div>
-        `;
-      }
-    }
-
-    // =============================================================
-    // Render Achievements
-    // =============================================================
-    function renderAchievements(achievements) {
-      const container = document.getElementById('achievementsGrid');
-      let html = '';
-
-      achievements.forEach((data, index) => {
-        const delay = (index % 6) * 0.15;
-        const color = data.color || 'linear-gradient(90deg, #7b61ff, #a78bfa)';
-        const iconBg = data.iconBg || 'linear-gradient(135deg, rgba(123,97,255,0.2), rgba(167,139,250,0.2))';
-        const iconBorder = data.iconBorder || 'rgba(123,97,255,0.3)';
-        const badgeColor = data.badgeColor || '#fbbf24';
-        const badgeBg = data.badgeBg || 'rgba(245,158,11,0.12)';
-        const badgeBorder = data.badgeBorder || 'rgba(245,158,11,0.25)';
-        const glowColor = data.glowColor || 'radial-gradient(circle, rgba(123,97,255,0.15) 0%, transparent 70%)';
-
-        html += `
-          <div class="achievement-card" style="animation-delay: ${delay}s;">
-            <div class="card-top" style="background: ${color};"></div>
-            <div class="card-body">
-              <div class="card-glow" style="background: ${glowColor};"></div>
-              <div class="card-header">
-                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-                  <div class="card-icon" style="background: ${iconBg}; border: 1px solid ${iconBorder}; box-shadow: 0 8px 24px rgba(123,97,255,0.2);">
-                    ${data.icon || '🏆'}
-                  </div>
-                  <span class="card-year">${data.year || 'N/A'}</span>
-                </div>
-                ${data.badge ? `<span class="card-badge" style="color: ${badgeColor}; background: ${badgeBg}; border: 1px solid ${badgeBorder};">${data.badge}</span>` : ''}
-              </div>
-              <h3 class="card-title">${data.title || 'Untitled'}</h3>
-              <p class="card-description">${data.description || ''}</p>
-              ${data.stats && data.stats.length > 0 ? `
-                <div class="card-stats">
-                  ${data.stats.map((stat, i) => `
-                    ${i > 0 ? '<div class="stat-divider"></div>' : ''}
-                    <div class="stat-item">
-                      <div class="stat-value">${stat.value}</div>
-                      <div class="stat-label-sm">${stat.label}</div>
-                    </div>
-                  `).join('')}
-                </div>
-              ` : ''}
-              <div class="card-tags">
-                ${data.tags?.map(t => `<span class="tag">${t}</span>`).join('') || ''}
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      container.innerHTML = html;
-    }
-
-    // =============================================================
-    // Update Stats
-    // =============================================================
-    function updateStats(achievements) {
-      const total = achievements.length;
-      document.getElementById('totalCount').textContent = total;
-
-      let ctf = 0, volunteer = 0, other = 0;
-      achievements.forEach(a => {
-        const tags = a.tags || [];
-        const title = (a.title || '').toLowerCase();
-        const desc = (a.description || '').toLowerCase();
-
-        if (tags.includes('CTF') || tags.includes('Competition') || title.includes('ctf') || desc.includes('ctf')) {
-          ctf++;
-        } else if (tags.includes('Volunteer') || tags.includes('Volunteering') || title.includes('volunteer') || desc.includes('volunteer')) {
-          volunteer++;
-        } else {
-          other++;
-        }
-      });
-
-      document.getElementById('ctfCount').textContent = ctf;
-      document.getElementById('volunteerCount').textContent = volunteer;
-      document.getElementById('otherCount').textContent = other;
-    }
-
-    // =============================================================
     // Theme Toggle
-    // =============================================================
-    window.toggleTheme = function() {
+    function toggleTheme() {
       document.body.classList.toggle('light-mode');
       const btn = document.querySelector('.theme-toggle');
       if (document.body.classList.contains('light-mode')) {
@@ -896,28 +1116,23 @@
         btn.innerHTML = '🌙';
         localStorage.setItem('theme', 'dark');
       }
-    };
+    }
 
+    // Load saved theme
     if (localStorage.getItem('theme') === 'light') {
       document.body.classList.add('light-mode');
       document.querySelector('.theme-toggle').innerHTML = '☀️';
     }
 
-    // =============================================================
-    // Loader
-    // =============================================================
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loader').classList.add('hidden');
-      }, 400);
-    });
-
-    // =============================================================
-    // Start Loading
-    // =============================================================
-    loadAchievements();
-
-    console.log('🚀 Achievements page ready!');
+    // Blink animation for the live dot
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 
 </body>
