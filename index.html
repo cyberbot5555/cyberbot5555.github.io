@@ -880,29 +880,45 @@
     <!-- Writeups Grid -->
     <div class="writeups-grid" id="writeupsGrid">
       
-      <!-- Writeup 1 - Web -->
-      <div class="writeup-card" data-category="web" data-difficulty="medium" onclick="openWriteup('sql')" style="cursor: pointer; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+   <!-- Writeup 1 - Memory Forensics (RedLine Lab) -->
+      <div class="writeup-card" data-category="forensics" data-difficulty="easy" onclick="openWriteup('redline')" style="cursor: pointer; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #10b981, #34d399);"></div>
         <div style="padding: 28px 24px 24px;">
           <div class="writeup-badges" style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
-            <span class="badge badge-category" style="background: rgba(123, 97, 255, 0.12); color: var(--primary-soft); border: 1px solid rgba(123, 97, 255, 0.2); padding: 5px 14px; border-radius: 40px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;">🌐 Web Exploitation</span>
-            <span class="badge badge-medium" style="background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); padding: 5px 14px; border-radius: 40px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;">⚡ Medium</span>
+            <span class="badge badge-category" style="background: rgba(123, 97, 255, 0.12); color: var(--primary-soft); border: 1px solid rgba(123, 97, 255, 0.2); padding: 5px 14px; border-radius: 40px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;">🔬 Memory Forensics</span>
+            <span class="badge badge-easy" style="background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); padding: 5px 14px; border-radius: 40px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;">✅ Easy</span>
           </div>
-          <h3 class="writeup-title" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--text);">SQL Injection Mastery</h3>
+          <h3 class="writeup-title" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--text);">RedLine Lab — Memory Forensics</h3>
           <div class="writeup-meta" style="display: flex; gap: 16px; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px; flex-wrap: wrap;">
-            <span>📅 Jan 15, 2024</span>
-            <span>⏱️ 12 min read</span>
-            <span>🏠 HackTheBox</span>
+            <span>📅 Sep 15, 2026</span>
+            <span>⏱️ 15 min read</span>
+            <span>🏠 CyberDefenders</span>
           </div>
-          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">Exploiting blind SQL injection to bypass authentication and extract sensitive database information.</p>
-          <div class="tags" style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">SQL</span>
-            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">Database</span>
-            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">Auth Bypass</span>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">Analyzing a Windows memory dump with Volatility 3 to uncover a malware infection, C2 communication, and malicious artifacts.</p>
+          <div class="tags" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">Volatility 3</span>
+            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">Memory Dump</span>
+            <span class="tag" style="padding: 4px 12px; background: var(--surface-hover); border-radius: 30px; font-size: 0.75rem; color: var(--text-secondary);">Malware Analysis</span>
+          </div>
+          
+          <!-- READ MORE SECTION -->
+          <div style="padding-top: 16px; border-top: 1px solid var(--border);" onclick="event.stopPropagation()">
+            <p style="font-size: 0.8rem; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px;">
+              📖 Read full writeup on:
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="https://github.com/cyberbot5555/capture-the-flag-writeups/tree/main/CyberDefender" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(123, 97, 255, 0.1); border: 1px solid rgba(123, 97, 255, 0.25); border-radius: 30px; font-size: 0.75rem; color: var(--primary-soft); text-decoration: none; font-family: 'JetBrains Mono', monospace; transition: all 0.2s ease;" onmouseover="this.style.background='var(--primary)'; this.style.color='#fff';" onmouseout="this.style.background='rgba(123, 97, 255, 0.1)'; this.style.color='var(--primary-soft)';">
+              <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+             <a href="https://medium.com/@cyberbot555" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 30px; font-size: 0.75rem; color: #34d399; text-decoration: none; font-family: 'JetBrains Mono', monospace; transition: all 0.2s ease;" onmouseover="this.style.background='#10b981'; this.style.color='#fff';" onmouseout="this.style.background='rgba(16, 185, 129, 0.1)'; this.style.color='#34d399';">
+              <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75S24 8.83 24 12z"/></svg>
+              Medium
+            </a>
+            </div>
           </div>
         </div>
       </div>
-
       <!-- Writeup 2 - Reverse Engineering -->
       <div class="writeup-card" data-category="reverse" data-difficulty="hard" onclick="openWriteup('rev')" style="cursor: pointer; position: relative; overflow: hidden;">
         <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ef4444, #f87171);"></div>
